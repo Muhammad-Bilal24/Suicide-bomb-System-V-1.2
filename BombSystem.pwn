@@ -11,8 +11,8 @@
 #define IsPlayerHoldingObject(%1) IsPlayerAttachedObjectSlotUsed(%1,MAX_PLAYER_ATTACHED_OBJECTS-1)
 //================================Color ======================================//
 #define 	COLOR_YELLOW	0xFFFF00AA
-#define     COLOR_GREEN     0x33AA33AA
-#define     COLOR_RED 		0xFF4500AA
+#define     	COLOR_GREEN     0x33AA33AA
+#define     	COLOR_RED 		0xFF4500AA
 #define 	COL_WHITE       "{FFFFFF}"
 #define 	COL_GREY        "{C3C3C3}"
 //==============================Varaibles=====================================//
@@ -76,20 +76,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if(Bomb[playerid][0])
 		{
 			if(IsPlayerInAnyVehicle(playerid))return SCM(playerid,COLOR_YELLOW,"You're not allowed to use this bomb using any vehicle.");
-            BUTTON_PUSHED[playerid] = 1;
-            CountDown[playerid] = 10;
+            		BUTTON_PUSHED[playerid] = 1;
+            		CountDown[playerid] = 10;
 			GetPlayerPos(playerid, Pos[playerid][0], Pos[playerid][1], Pos[playerid][2]);
 			StopPlayerHoldingObject(playerid);
 			BOMB_OBJECT[playerid] = CreateObject(1210, Pos[playerid][0], Pos[playerid][1], Pos[playerid][2]-0.8, 0, 0, 4);
 	  		BOMB_CD[playerid] = Create3DTextLabel("Bomb Created",COLOR_RED , Pos[playerid][0], Pos[playerid][1], Pos[playerid][2],40.0,0);
 			SCM(playerid, COLOR_GREEN, "Warning: You need to run away from the range of the bomb.");
-            EXPLODE_TIMER[playerid]= SetTimerEx("OnPlayerBombCountdown",1000,1,"i",playerid);
+            		EXPLODE_TIMER[playerid]= SetTimerEx("OnPlayerBombCountdown",1000,1,"i",playerid);
 			EXPLODE_BOMB[playerid] = SetTimerEx("OnPlayerUseRemote",10000,0,"i",playerid);
 		}
 		if(Bomb[playerid][1])
 		{
 			if(IsPlayerInAnyVehicle(playerid))return SCM(playerid,COLOR_YELLOW,"You're not allowed to use this bomb using any vehicle.");
-		    new count = 0,str[128];
+		    	new count = 0,str[128];
 			GetPlayerPos(playerid, Pos[playerid][0], Pos[playerid][1], Pos[playerid][2]);
    			CreateExplosion(Pos[playerid][0], Pos[playerid][1], Pos[playerid][2] , 12, 0.0);
 			Bomb[playerid][1] = 0;
@@ -98,7 +98,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 					if(IsPlayerInRangeOfPoint(i, RANGE, Pos[playerid][0], Pos[playerid][1], Pos[playerid][2]))
 					{
-                            AppliedBombEffect(i);
+                            				AppliedBombEffect(i);
 							if( i != playerid   )
 							{
 								count++;
@@ -119,7 +119,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	    new count = 0 , str[128];
 		if(!IsPlayerInAnyVehicle(playerid))return SCM(playerid,COLOR_YELLOW,"You're not in any vehicle.");
   		GetPlayerPos(playerid, Pos[playerid][0], Pos[playerid][1], Pos[playerid][2]);
-        CreateExplosion(Pos[playerid][0], Pos[playerid][1], Pos[playerid][2] , 12, 0.0);
+        	CreateExplosion(Pos[playerid][0], Pos[playerid][1], Pos[playerid][2] , 12, 0.0);
 		Bomb[playerid][2] = 0;
 		foreach(Player,i)
 		{
@@ -215,7 +215,7 @@ public OnPlayerBombCountdown(playerid)
 			format(Rstr, sizeof(Rstr),"~y~Briefcase~n~~r~Exploding~n~In~n~~y~Time Left ~n~~b~%d",CountDown[playerid]);
 			GameTextForPlayer(playerid,Rstr,1000,5);
    			format(Rstr,sizeof(Rstr),"Bomb Exploding\nTime Left\n  "COL_WHITE"%d",CountDown[playerid]);
-            Update3DTextLabelText(BOMB_CD[playerid], COLOR_RED, Rstr);
+            		Update3DTextLabelText(BOMB_CD[playerid], COLOR_RED, Rstr);
 			PlayerPlaySound(playerid, 4203, 0.0, 0.0, 0.0);
 			}
 	  	}
@@ -229,7 +229,7 @@ public OnPlayerUseRemote(playerid)
 	new count = 0,str[128];
 	Bomb[playerid][0] = 0;
 	BUTTON_PUSHED[playerid] = 0;
-    CreateExplosion(Pos[playerid][0], Pos[playerid][1], Pos[playerid][2] , 12, 0.0);
+    	CreateExplosion(Pos[playerid][0], Pos[playerid][1], Pos[playerid][2] , 12, 0.0);
 	Delete3DTextLabel(BOMB_CD[playerid]);
 	DestroyObject(BOMB_OBJECT[playerid]);
 	KillTimer(EXPLODE_TIMER[playerid]);
